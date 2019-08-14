@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Craftyclicks_C2a>
-			<version>0.5.4</version>
+			<version>0.5.5</version>
 		</Craftyclicks_C2a>
 	</modules>
 
@@ -51,6 +51,7 @@
 				<dropdown_accent>default</dropdown_accent>
 			</design>
 			<texts>
+				<country_language>0</country_language>
 				<search_label>Address Search</search_label>
 				<search_placeholder>Start with post/zip code or street</search_placeholder>
 				<country_placeholder>Type here to search for a country</country_placeholder>

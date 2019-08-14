@@ -96,6 +96,13 @@ document.observe('dom:loaded', function() {
 		config.countryMatchWith = 'iso_2';
 		config.enabledCountries = c2a_config.enabled_countries;
 	}
+	if(parseInt(c2a_config.texts.country_language) !== 0){
+		switch(parseInt(c2a_config.texts.country_language)){
+			case 1:
+				config.countryLanguage = 'de';
+				break;
+		}
+	}
 	cc_search = new clickToAddress(config);
 
 	if ($('address_list')) {

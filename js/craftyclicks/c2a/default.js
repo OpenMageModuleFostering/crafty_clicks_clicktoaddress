@@ -89,6 +89,13 @@ document.observe('dom:loaded', function() {
 		},
 		tag: 'Magento 1'
 	};
+	if(parseInt(c2a_config.texts.country_language) !== 0){
+		switch(parseInt(c2a_config.texts.country_language)){
+			case 1:
+				config.countryLanguage = 'de';
+				break;
+		}
+	}
 	if(parseInt(c2a_config.advanced.match_countries_to_magento) == 1){
 		config.countryMatchWith = 'iso_2';
 		config.enabledCountries = c2a_config.enabled_countries;
