@@ -3,62 +3,62 @@
  /**
  * Crafty Clicks Postcode Lookup
  *
- * @category	 Extension
- * @copyright	Copyright (c) 2009-2017 Crafty Clicks (https://www.craftyclicks.co.uk)
- * @author	   Crafty Clicks
+ * @category     Extension
+ * @copyright    Copyright (c) 2009-2017 Crafty Clicks (https://www.craftyclicks.co.uk)
+ * @author       Crafty Clicks
  */
  -->
 
 <layout>
 	<adminhtml_sales_order_create_index>
 		<reference name="head">
-			<block type="c2a/integration" name="c2a_integration">
+			<block type="c2a/integration" name="integration">
 				<action method="addJS">
 					<parameter>admin</parameter>
 				</action>
 			</block>
 		</reference>
 		<reference name="js">
-			<block type="adminhtml/template" name="c2a_config" template="craftyclicks/c2a/c2a_config.phtml" />
+			<block type="adminhtml/template" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
 		</reference>
 	</adminhtml_sales_order_create_index>
 
 	<adminhtml_customer_edit>
 		<reference name="head">
-			<block type="c2a/integration" name="c2a_integration">
+			<block type="c2a/integration" name="integration">
 				<action method="addJS">
 					<parameter>admin</parameter>
 				</action>
 			</block>
 		</reference>
 		<reference name="js">
-			<block type="adminhtml/template" name="c2a_config" template="craftyclicks/c2a/c2a_config.phtml" />
+			<block type="adminhtml/template" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
 		</reference>
 	</adminhtml_customer_edit>
 
 	<adminhtml_customer_new>
 		<reference name="head">
-			<block type="c2a/integration" name="c2a_integration">
+			<block type="c2a/integration" name="integration">
 				<action method="addJS">
 					<parameter>admin</parameter>
 				</action>
 			</block>
 		</reference>
 		<reference name="js">
-			<block type="adminhtml/template" name="c2a_config" template="craftyclicks/c2a/c2a_config.phtml" />
+			<block type="adminhtml/template" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
 		</reference>
 	</adminhtml_customer_new>
 
 	<adminhtml_sales_order_address>
 		<reference name="head">
-			<block type="c2a/integration" name="c2a_integration">
+			<block type="c2a/integration" name="integration">
 				<action method="addJS">
 					<parameter>admin</parameter>
 				</action>
 			</block>
 		</reference>
 		<reference name="js">
-			<block type="adminhtml/template" name="c2a_config" template="craftyclicks/c2a/c2a_config.phtml" />
+			<block type="adminhtml/template" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
 		</reference>
 	</adminhtml_sales_order_address>
 

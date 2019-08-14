@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
     <name>Crafty_Clicks_Clicktoaddress</name>
-    <version>0.5.11</version>
+    <version>0.5.2</version>
     <stability>stable</stability>
     <license uri="https://opensource.org/licenses/MIT">MIT License</license>
     <channel>community</channel>
@@ -15,89 +15,16 @@ Benefits&#xD;
 &#xD;
 Faster checkout/registration experience - a boost for conversions&#xD;
 More accurate addresses captured - fewer missed deliveries</description>
-    <notes>v0.5.11&#xD;
-&#xD;
-- New feature: geocoding sets the default country to the user's location&#xD;
-&#xD;
-- New feature: lock selected country in search interface to selected country in dropdown&#xD;
-&#xD;
-- Improved compatibility with our Postcode Lookup extension&#xD;
-&#xD;
-- Excluded search input box from browser auto-fill functionality&#xD;
-&#xD;
-&#xD;
-v0.5.8&#xD;
-&#xD;
-- New feature: Hide Address Lines&#xD;
-&#xD;
-Hides address lines until the search is performed.&#xD;
-&#xD;
-- Fix: reduced the amount of change triggers for earlier versions of Magento&#xD;
-&#xD;
-- New Feature: fallback solution for custom country names (translations)&#xD;
-&#xD;
-- Checkout support added: IDEV, MageStore, OneStepCheckout.&#xD;
-&#xD;
-&#xD;
-v0.5.7b&#xD;
-&#xD;
-- Core JS is now loaded from CDN&#xD;
-&#xD;
-- Fix: on admin / edit customer pages our code that sets the county / state ran faster than Magento would change the dropdown's content. Now it will await the county / state element to refresh&#xD;
-&#xD;
-&#xD;
-v0.5.7&#xD;
-&#xD;
-- Core JS v1.1.2&#xD;
-&#xD;
-- Change: the company input field will stay unmodified if there's no company data available for the selected address.&#xD;
-&#xD;
-&#xD;
-v0.5.6&#xD;
-&#xD;
-- Core JS v1.1.1&#xD;
-&#xD;
-- New feature: Lock country to dropdown&#xD;
-&#xD;
-- Fix: "no results" and the "generic error" messages weren't passed correctly.&#xD;
-&#xD;
-- Fix: added "input-text" class to the "Address Search" element on the front-end.&#xD;
-&#xD;
-&#xD;
-v0.5.5&#xD;
-&#xD;
-- Core JS v1.0.2&#xD;
-&#xD;
-- Added Texts option to change the country dropdown's language from English to German.&#xD;
-&#xD;
-&#xD;
-v0.5.4&#xD;
-&#xD;
-- Core JS v0.1.8&#xD;
-&#xD;
-- Added Advanced Option to limit selectable countries to match countries set by Magento&#xD;
-&#xD;
-v0.5.3&#xD;
-&#xD;
-- Core JS v0.1.3.2&#xD;
-&#xD;
-- New Feature: Use Address Line #1 instead of a new dropdown&#xD;
-&#xD;
-&#xD;
-v0.5.2&#xD;
-&#xD;
+    <notes>v0.5.2&#xD;
 - Updated core js&#xD;
-&#xD;
 - Modified some javascript files to match with altered js functionality&#xD;
 &#xD;
-&#xD;
 v0.5.0&#xD;
-&#xD;
 - Initial release for our global address endpoint.</notes>
     <authors><author><name>Gabor Suranyi</name><user>gabor</user><email>gabor@craftyclicks.co.uk</email></author></authors>
-    <date>2016-11-17</date>
-    <time>15:20:53</time>
-    <contents><target name="mage"><dir name="app"><dir name="code"><dir name="community"><dir name="Craftyclicks"><dir name="C2a"><dir name="Block"><dir name="Adminhtml"><file name="Version.php" hash="8c0e2fbb25e5a54214fb7a017f579dd8"/></dir><file name="Feedback.php" hash="e4470dcbe52e00586e2ab6c1d7daa62f"/><file name="Gridlight.php" hash="a13aefca2c8e9b47836468fba4935b00"/><file name="Integration.php" hash="5b6874f21ff5cc1c82e63113e4d36263"/><file name="Ordergrid.php" hash="edc2c351992cf6c54fd953c1e38c56e0"/></dir><dir name="Helper"><file name="Data.php" hash="eec8278fb149d3884dd886365e5a410b"/></dir><dir name="Model"><file name="Address.php" hash="9e2d6ece83d4aedd9a1218b2023fdfaa"/><file name="Ambient.php" hash="f165ad641db7de86123107394aaee4a3"/><file name="Countrylanguage.php" hash="459bd3d9cf0e1138e91668434d71113c"/><file name="Mode.php" hash="777e339aad59783ddea82de1277c3ae8"/><file name="Position.php" hash="d70c139a43e738edce192bc5ecd8b04d"/><dir name="Resource"><dir name="Address"><file name="Collection.php" hash="3d05eacf7cd64263a2c5b617e5030dbb"/></dir><file name="Address.php" hash="844e3043e575b515d04e49a1f4541784"/></dir></dir><dir name="controllers"><file name="HashController.php" hash="c8fb17f7ece7ff7ed6e7b2b80df91799"/></dir><dir name="etc"><file name="config.xml" hash="e8d8d9f61e4528239f09e891e551d4cc"/><file name="system.xml" hash="1c19aac862c746f600fb4228d9527396"/></dir><dir name="sql"><dir name="craftyclicks_c2a_setup"><file name="install-0.5.0.php" hash="2fd9db9f51d68ef519cdbd21d94cb96d"/></dir></dir></dir></dir></dir></dir><dir name="etc"><dir name="modules"><file name="Craftyclicks_C2a.xml" hash="c768961bc22f68c72f3841dba8fec054"/></dir></dir><dir name="design"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="craftyclicks_c2a.xml" hash="c447b46c1a3034f7d80b0893128d0cca"/></dir><dir name="template"><dir name="craftyclicks"><dir name="c2a"><file name="c2a_config.phtml" hash="977a74824add61b0d573d219c7bece49"/></dir></dir></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="craftyclicks_c2a.xml" hash="40856fbd4db86262f2c36d328cfb6249"/></dir><dir name="template"><dir name="craftyclicks"><dir name="c2a"><file name="c2a_config.phtml" hash="b3a1f247dbdb0dd5d06b207fce025c48"/></dir></dir></dir></dir></dir></dir></dir></dir><dir name="js"><dir name="craftyclicks"><dir name="c2a"><dir name="admin"><file name="enhance.js" hash="bd031782df831cd74d8e94f2efd86c5b"/></dir><file name="admin.js" hash="80041dd47a2bd508d1b705c440e693d4"/><file name="advanced.js" hash="007fb8b8f1f27bcb468c95efd11407ee"/><file name="clarion.js" hash="28dac729cffdf94663c5080d28375dee"/><file name="default.js" hash="5e6bdcad177f3ee5814716a57b40c55e"/></dir></dir></dir><dir name="skin"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="css"><dir name="craftyclicks"><dir name="c2a"><file name="enhance.css" hash="53d7a61bf3b953c31c8bdbccfacddb8b"/></dir></dir></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="css"><dir name="craftyclicks"><dir name="c2a"><file name="cc_c2a_frontend.css" hash="e1bc276523e657c014c154a2d7f1ddc3"/></dir></dir></dir></dir></dir></dir></dir></target></contents>
+    <date>2016-04-21</date>
+    <time>14:37:44</time>
+    <contents><target name="mage"><dir name="app"><dir name="code"><dir name="community"><dir name="Craftyclicks"><dir name="C2a"><dir name="Block"><file name="Feedback.php" hash="e4470dcbe52e00586e2ab6c1d7daa62f"/><file name="Gridlight.php" hash="a13aefca2c8e9b47836468fba4935b00"/><file name="Integration.php" hash="9096083cb0649710f289bb920dba715a"/><file name="Ordergrid.php" hash="edc2c351992cf6c54fd953c1e38c56e0"/></dir><dir name="Helper"><file name="Data.php" hash="cab127b8e36bc60c6d1fd191b2cd2f2c"/></dir><dir name="Model"><file name="Address.php" hash="9e2d6ece83d4aedd9a1218b2023fdfaa"/><file name="Ambient.php" hash="f165ad641db7de86123107394aaee4a3"/><file name="Mode.php" hash="777e339aad59783ddea82de1277c3ae8"/><dir name="Resource"><dir name="Address"><file name="Collection.php" hash="3d05eacf7cd64263a2c5b617e5030dbb"/></dir><file name="Address.php" hash="844e3043e575b515d04e49a1f4541784"/></dir></dir><dir name="controllers"><file name="HashController.php" hash="dfd216a607538c94c1566c492c8cf068"/></dir><dir name="data"><dir name="craftyclicks_c2a_setup"><file name="data-upgrade-2.4.9-2.5.0.php" hash="aeca3eaad1229c41333e0cb1412e0a36"/></dir></dir><dir name="etc"><file name="config.xml" hash="c484097cff5d0a1c7c75d3eb1d87b4b6"/><file name="config.xml~" hash="daa3c75ae9e5dbf2b11b41ad12c0ccd1"/><file name="system.xml" hash="d76b1e2072c63b79b35f5ab5f1cd79a3"/></dir><dir name="sql"><dir name="craftyclicks_c2a_setup"><file name="install-0.5.0.php" hash="2fd9db9f51d68ef519cdbd21d94cb96d"/></dir></dir></dir></dir></dir></dir><dir name="etc"><dir name="modules"><file name="Craftyclicks_C2a.xml" hash="70ea298e8719f2e36adaf179a7614618"/></dir></dir><dir name="design"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="craftyclicks_c2a.xml" hash="f570f7a4b992bb92f5860aa712579f54"/></dir><dir name="template"><dir name="craftyclicks"><dir name="c2a"><file name="c2a_config.phtml" hash="cd80f0573153dcf0ba4c1ddef813d7c2"/></dir></dir></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="craftyclicks_c2a.xml" hash="7b3a73917e8ff880deb419427c259224"/></dir><dir name="template"><dir name="craftyclicks"><dir name="c2a"><file name="c2a_config.phtml" hash="c74721e81af4ecb27d1fff1c11008264"/></dir></dir></dir></dir></dir></dir></dir></dir><dir name="js"><dir name="craftyclicks"><dir name="c2a"><dir name="admin"><file name="enhance.js" hash="99cb87e69fc85aaadcd75ebc5dce7ec8"/></dir><file name="admin.js" hash="1f537437c748405244aaf160cd0e0982"/><file name="default.js" hash="254ed6f988211d7a59460cd7f17f5d56"/><dir name="lib"><file name="cc_c2a.min.js" hash="bc072a0cc3e1852b9c5aa00d63774357"/></dir></dir></dir></dir><dir name="skin"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="css"><dir name="craftyclicks"><dir name="c2a"><file name="cc_c2a.min.css" hash="8fc86b2bf712cf0412656cc2a3179559"/><file name="enhance.css" hash="dda54390b1cab47079e073512dd73ba0"/><file name="flags.png" hash="532864aae05c78ed545214c84710fbcc"/></dir></dir></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="css"><dir name="craftyclicks"><dir name="c2a"><file name="cc_c2a.min.css" hash="8fc86b2bf712cf0412656cc2a3179559"/><file name="flags.png" hash="532864aae05c78ed545214c84710fbcc"/></dir></dir></dir></dir></dir></dir></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.2.0</min><max>7.0.0</max></php></required></dependencies>
 </package>
