@@ -1,0 +1,14 @@
+input.c2a-highlight:not(:focus){
+	margin: -1px;
+	border: 2px solid red;
+	animation: border-pulsate 1s infinite;
+}
+input.c2a-highlight:focus{
+	margin: 0px;
+}
+
+@keyframes border-pulsate {
+	0%		{ border-color: red;	}
+	50%		{ border-color: green;	}
+	100%	{ border-color: red;	}
+}

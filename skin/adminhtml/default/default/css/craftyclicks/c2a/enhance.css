@@ -4,6 +4,7 @@
 	margin: 2px;
 	float: left;
 	border: 2px solid white;
+	border-radius: 5px;
 }
 .color-cube:hover{
 	border-color: #63a2f1;

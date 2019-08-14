@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Craftyclicks_C2a>
-			<version>0.5.0</version>
+			<version>0.5.11</version>
 		</Craftyclicks_C2a>
 	</modules>
 
@@ -45,11 +45,14 @@
 				<access_token>xxxxx-xxxxx-xxxxx-xxxxx</access_token>
 			</options>
 			<design>
+				<search_position>1</search_position>
 				<dropdown_mode>2</dropdown_mode>
 				<dropdown_ambient>light</dropdown_ambient>
 				<dropdown_accent>default</dropdown_accent>
+				<hide_address_fields>0</hide_address_fields>
 			</design>
 			<texts>
+				<country_language>0</country_language>
 				<search_label>Address Search</search_label>
 				<search_placeholder>Start with post/zip code or street</search_placeholder>
 				<country_placeholder>Type here to search for a country</country_placeholder>
@@ -57,6 +60,11 @@
 				<error_msg_1>No results found</error_msg_1>
 				<error_msg_2>An error occured. Please enter your address manually</error_msg_2>
 			</texts>
+			<advanced>
+				<match_country_list>1</match_country_list>
+				<lock_country_to_dropdown>0</lock_country_to_dropdown>
+				<geocoding>1</geocoding>
+			</advanced>
 		</c2a_global>
 	</default>
 

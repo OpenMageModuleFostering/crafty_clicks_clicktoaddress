@@ -6,7 +6,7 @@
 //
 // Provided by www.CraftyClicks.co.uk
 //
-// Requires the new fancy Crafty Clicks Global JS library - Tested with 0.1
+// Requires the new fancy Crafty Clicks Global JS library - Tested with 1.1.6
 //
 // If you copy/use/modify this code - please keep this
 // comment header in place
@@ -22,62 +22,140 @@
 var cc_search = null;
 function cc_magento(magentoCfg){
 	var li_class = 'wide';
-
-	if (!$(magentoCfg.prefix+'_cc_search_input')) {
-		var tmp_html = '<tr><td class="label">'+c2a_config.texts.search_label+'</td><td class="value">'+
-			'<input id="'+magentoCfg.prefix+'_cc_search_input" class="input-text" type="text"/></td></tr>';
-		magentoCfg.fields.street1_obj.up('tr').insert( {before: tmp_html} );
+	if (c2a_config.design.search_position == 1){
+		if (!$(magentoCfg.prefix+'_cc_search_input')) {
+			var tmp_html = '<tr><td class="label">'+c2a_config.texts.search_label+'</td><td class="value">'+
+				'<input id="'+magentoCfg.prefix+'_cc_search_input" class="input-text" type="search"/></td></tr>';
+			$(magentoCfg.fields.street1_obj).up('tr').insert( {before: tmp_html} );
+		}
+		cc_search.attach({
+			search: 	$(magentoCfg.prefix+'_cc_search_input'),
+			line_1: 	$(magentoCfg.fields.street1_obj),
+			line_2: 	$(magentoCfg.fields.street2_obj),
+			town:		$(magentoCfg.fields.town_obj),
+			company:	$(magentoCfg.fields.company_obj),
+			postcode:	$(magentoCfg.fields.postcode_obj),
+			county:		magentoCfg.fields.county_obj,
+			country:	$(magentoCfg.fields.country_obj)
+		});
+	} else {
+		cc_search.attach({
+			search: 	$(magentoCfg.fields.street1_obj),
+			line_1: 	$(magentoCfg.fields.street1_obj),
+			line_2: 	$(magentoCfg.fields.street2_obj),
+			town:		$(magentoCfg.fields.town_obj),
+			company:	$(magentoCfg.fields.company_obj),
+			postcode:	$(magentoCfg.fields.postcode_obj),
+			county:		magentoCfg.fields.county_obj,
+			country:	$(magentoCfg.fields.country_obj)
+		});
 	}
-	cc_search.attach({
-		search: 	$(magentoCfg.prefix+'_cc_search_input'),
-		line_1: 	magentoCfg.fields.street1_obj,
-		line_2: 	magentoCfg.fields.street2_obj,
-		town:		magentoCfg.fields.town_obj,
-		company:	magentoCfg.fields.company_obj,
-		postcode:	magentoCfg.fields.postcode_obj,
-		county:		magentoCfg.fields.county_obj,
-		country:	magentoCfg.fields.country_obj,
-		country:	magentoCfg.fields.country_obj
-	});
 }
 
 document.observe('dom:loaded', function() {
-
 	if (typeof c2a_config == 'undefined' || !c2a_config.active) return;
+
+	/*
+		some versions of Magento require that every element on the form to be triggered,
+		while others reload the whole form every single time an element is changed (older versions)
+		with older versions, such a reload saves all current data
+		For Magento 1.7: limit refresh to
+			- country (so that we get the correct county / state list)
+			- county / state (so that the modified value is visible)
+	*/
+	var lightRefresh = c2a_config.other.magento_version == '1.7';
 
 	var config = {
 		accessToken: c2a_config.access_token,
 		domMode: 'object',
-		geocode: false,
 		gfxMode: c2a_config.design.mode,
-		defaultCountry: 'usa',
+		defaultCountry: c2a_config.default_country,
 		style: {
 			ambient: c2a_config.design.ambient,
 			accent: c2a_config.design.accent
 		},
 		showLogo: false,
 		texts: c2a_config.texts,
-		cssPath: false,
-		onSetCounty: function(c2a, county, elements){
+		onSetCounty: function(c2a, elements, county){
+			var lightRefresh = c2a_config.other.magento_version == '1.7';
 			var quickChange = function(elem){
 				if(typeof elem != 'undefined' && elem !== null){
-					elem.simulate('change');
+					$(elem).simulate('change');
 				}
 			};
 			quickChange(elements.country);
-			quickChange(elements.postcode);
-			quickChange(elements.line_1);
-			quickChange(elements.line_2);
-			quickChange(elements.town);
-			quickChange(elements.company);
-			if(typeof elements.county.list != 'undefined' && elements.county.list !== null){
-				c2a.setCounty(elements.county.list, county);
+			if(!lightRefresh){
+				quickChange(elements.postcode);
+				quickChange(elements.line_1);
+				quickChange(elements.line_2);
+				quickChange(elements.town);
+				quickChange(elements.company);
 			}
-			if(typeof elements.county.input != 'undefined' && elements.county.input !== null){
-				c2a.setCounty(elements.county.input, county);
+
+			if(typeof elements.county.refresh != 'undefined' && elements.county.refresh){
+				$(elements.county.input).writeAttribute('data-isRefreshed','0');
+				var refresh_tracker = setInterval(function(){
+					var options = $(elements.county.list).select('option') || []; // if the dropdown doesn't have any elements
+					var optionsReady = true;
+					if(options.length == 1 && $(elements.county.list).readAttribute('disabled') === null){
+						optionsReady = false;
+					}
+					if($(elements.county.input).readAttribute('data-isRefreshed') == '0' || !optionsReady){
+						return;
+					} else {
+						clearInterval(refresh_tracker);
+					}
+					// first set the input, so it can go with the county update cycle (if needed)
+					if(typeof elements.county.input != 'undefined' && elements.county.input !== null){
+						c2a.setCounty($(elements.county.input), county);
+						if(!lightRefresh){
+							quickChange(elements.county.input);
+						}
+					}
+					if(typeof elements.county.list != 'undefined' && elements.county.list !== null){
+						c2a.setCounty($(elements.county.list), county);
+						quickChange(elements.county.list);
+					}
+				},50);
+			} else {
+				if(typeof elements.county.input != 'undefined' && elements.county.input !== null){
+					c2a.setCounty($(elements.county.input), county);
+					if(!lightRefresh){
+						quickChange(elements.county.input);
+					}
+				}
+				if(typeof elements.county.list != 'undefined' && elements.county.list !== null){
+					c2a.setCounty($(elements.county.list), county);
+					quickChange(elements.county.list);
+				}
 			}
+		},
+		onResultSelected: function(c2a, elements, results){
+			// if can't find country, enforce country dropdown to match by iso_2
+			if(typeof elements.country.down('option:selected') == 'undefined' || elements.country.down('option:selected').value === ''){
+				elements.country.value = results.country.iso_3166_1_alpha_2;
+			}
+		},
+		tag: 'Magento 1'
+	};
+	if(c2a_config.advanced.match_countries_to_magento){
+		config.countryMatchWith = 'iso_2';
+		config.enabledCountries = c2a_config.enabled_countries;
+	}
+	config.onSearchFocus = function(c2a, dom){
+		var currentCountry = dom.country.options[dom.country.selectedIndex].value;
+		if(currentCountry !== ''){
+			var countryCode = getCountryCode(c2a, currentCountry, 'iso_2');
+			c2a.selectCountry(countryCode);
 		}
 	};
+	if(parseInt(c2a_config.texts.country_language) !== 0){
+		switch(parseInt(c2a_config.texts.country_language)){
+			case 1:
+				config.countryLanguage = 'de';
+				break;
+		}
+	}
 	cc_search = new clickToAddress(config);
 
 	if ($('address_list')) {
@@ -102,22 +180,23 @@ document.observe('dom:loaded', function() {
 					item_html_id = '_item'+item_id;
 				}
 
-				if ('' != item_html_id) {
+				if ('' !== item_html_id) {
 					var cc_tmp = cc_magento({
 						prefix	: item_html_id,
 						fields	: {
-							postcode_obj: $(item_html_id+"postcode"),
-							company_obj	: $(item_html_id+"company"),
-							street1_obj	: $(item_html_id+"street0"),
-							street2_obj	: $(item_html_id+"street1"),
-							street3_obj	: $(item_html_id+"street2"),
-							street4_obj	: $(item_html_id+"street3"),
-							town_obj	: $(item_html_id+"city"),
+							postcode_obj: item_html_id+"postcode",
+							company_obj	: item_html_id+"company",
+							street1_obj	: item_html_id+"street0",
+							street2_obj	: item_html_id+"street1",
+							street3_obj	: item_html_id+"street2",
+							street4_obj	: item_html_id+"street3",
+							town_obj	: item_html_id+"city",
 							county_obj	: {
-								input		: $(item_html_id+"region"),
-								list		: $(item_html_id+"region_id")
+								input		: item_html_id+"region",
+								list		: item_html_id+"region_id",
+								refresh		: true
 							},
-							country_obj	: $(item_html_id+"country_id")
+							country_obj	: item_html_id+"country_id"
 						}
 					});
 				}
@@ -135,18 +214,19 @@ document.observe('dom:loaded', function() {
 			cc_magento({
 				prefix	: item_html_id,
 				fields	: {
-					postcode_obj: $(item_html_id+"postcode"),
-					company_obj	: $(item_html_id+"company"),
-					street1_obj	: $(item_html_id+"street0"),
-					street2_obj	: $(item_html_id+"street1"),
-					street3_obj	: $(item_html_id+"street2"),
-					street4_obj	: $(item_html_id+"street3"),
-					town_obj	: $(item_html_id+"city"),
+					postcode_obj: item_html_id+"postcode",
+					company_obj	: item_html_id+"company",
+					street1_obj	: item_html_id+"street0",
+					street2_obj	: item_html_id+"street1",
+					street3_obj	: item_html_id+"street2",
+					street4_obj	: item_html_id+"street3",
+					town_obj	: item_html_id+"city",
 					county_obj	: {
-						input		: $(item_html_id+"region"),
-						list		: $(item_html_id+"region_id")
+						input		: item_html_id+"region",
+						list		: item_html_id+"region_id",
+						refresh		: true
 					},
-					country_obj	: $(item_html_id+"country_id")
+					country_obj	: item_html_id+"country_id"
 				}
 			});
 		});
@@ -166,18 +246,18 @@ function _cp_check_and_attach() {
 		cc_magento({
 			prefix	: item_html_id,
 			fields	: {
-				postcode_obj: $(item_html_id+"postcode"),
-				company_obj	: $(item_html_id+"company"),
-				street1_obj	: $(item_html_id+"street0"),
-				street2_obj	: $(item_html_id+"street1"),
-				street3_obj	: $(item_html_id+"street2"),
-				street4_obj	: $(item_html_id+"street3"),
-				town_obj	: $(item_html_id+"city"),
+				postcode_obj: item_html_id+"postcode",
+				company_obj	: item_html_id+"company",
+				street1_obj	: item_html_id+"street0",
+				street2_obj	: item_html_id+"street1",
+				street3_obj	: item_html_id+"street2",
+				street4_obj	: item_html_id+"street3",
+				town_obj	: item_html_id+"city",
 				county_obj	: {
-					input		: $(item_html_id+"region"),
-					list		: $(item_html_id+"region_id")
+					input		: item_html_id+"region",
+					list		: item_html_id+"region_id"
 				},
-				country_obj	: $(item_html_id+"country_id")
+				country_obj	: item_html_id+"country_id"
 			}
 		});
 	}
@@ -188,18 +268,19 @@ function _cp_check_and_attach() {
 		cc_magento({
 			prefix	: item_html_id,
 			fields	: {
-				postcode_obj: $(item_html_id+"postcode"),
-				company_obj	: $(item_html_id+"company"),
-				street1_obj	: $(item_html_id+"street0"),
-				street2_obj	: $(item_html_id+"street1"),
-				street3_obj	: $(item_html_id+"street2"),
-				street4_obj	: $(item_html_id+"street3"),
-				town_obj	: $(item_html_id+"city"),
+				postcode_obj: item_html_id+"postcode",
+				company_obj	: item_html_id+"company",
+				street1_obj	: item_html_id+"street0",
+				street2_obj	: item_html_id+"street1",
+				street3_obj	: item_html_id+"street2",
+				street4_obj	: item_html_id+"street3",
+				town_obj	: item_html_id+"city",
 				county_obj	: {
-					input		: $(item_html_id+"region"),
-					list		: $(item_html_id+"region_id")
+					input		: item_html_id+"region",
+					list		: item_html_id+"region_id",
+					refresh 	: c2a_config.other.magento_version == '1.7'
 				},
-				country_obj	: $(item_html_id+"country_id")
+				country_obj	: item_html_id+"country_id"
 			}
 		});
 	}
@@ -210,18 +291,18 @@ function _cp_check_and_attach() {
 		cc_magento({
 			prefix	: item_html_id,
 			fields	: {
-				postcode_obj: $(item_html_id+"postcode"),
-				company_obj	: $(item_html_id+"company"),
-				street1_obj	: $(item_html_id+"street0"),
-				street2_obj	: $(item_html_id+"street1"),
-				street3_obj	: $(item_html_id+"street2"),
-				street4_obj	: $(item_html_id+"street3"),
-				town_obj	: $(item_html_id+"city"),
+				postcode_obj: item_html_id+"postcode",
+				company_obj	: item_html_id+"company",
+				street1_obj	: item_html_id+"street0",
+				street2_obj	: item_html_id+"street1",
+				street3_obj	: item_html_id+"street2",
+				street4_obj	: item_html_id+"street3",
+				town_obj	: item_html_id+"city",
 				county_obj	: {
-					input		: $(item_html_id+"region"),
-					list		: $(item_html_id+"region_id")
+					input		: item_html_id+"region",
+					list		: item_html_id+"region_id"
 				},
-				country_obj	: $(item_html_id+"country_id")
+				country_obj	: item_html_id+"country_id"
 			}
 		});
 	}
@@ -239,7 +320,7 @@ function _cp_check_and_attach() {
    var eventMatchers = {
 	 'HTMLEvents': /^(?:load|unload|abort|error|select|change|submit|reset|focus|blur|resize|scroll)$/,
 	 'MouseEvents': /^(?:click|mouse(?:down|up|over|move|out))$/
-   }
+ };
    var defaultOptions = {
 	 pointerX: 0,
 	 pointerY: 0,
@@ -250,7 +331,7 @@ function _cp_check_and_attach() {
 	 metaKey: false,
 	 bubbles: true,
 	 cancelable: true
-   }
+ };
 
    Event.simulate = function(element, eventName) {
 	 var options = Object.extend(defaultOptions, arguments[2] || { });
@@ -284,8 +365,8 @@ function _cp_check_and_attach() {
 	   element.fireEvent('on' + eventName, oEvent);
 	 }
 	 return element;
-   }
+ };
 
    Element.addMethods({ simulate: Event.simulate });
- })()
+ })();
 /* End of Protolicious */

@@ -27,7 +27,7 @@ document.observe('dom:loaded', function() {
 		};
 		var keys = Object.keys(colors);
 		for(var i=0; i<keys.length; i++){
-			$$('.color-set')[0].insert({bottom: '<div class="color-cube" data-value="'+keys[i]+'" style="background-color: '+colors[keys[i]]+'"></div>'})
+			$$('.color-set')[0].insert({bottom: '<div class="color-cube" data-value="'+keys[i]+'" style="background-color: '+colors[keys[i]]+'"></div>'});
 		}
 		$$('.color-set .color-cube').each(function(item){
 			$(item).on('click', function(event){
@@ -35,7 +35,9 @@ document.observe('dom:loaded', function() {
 				$$('.color-set .color-cube').each(function(cube){ cube.removeClassName('active'); });
 				this.addClassName('active');
 			});
+			if($(item).readAttribute('data-value') == $('c2a_global_design_dropdown_accent').getValue()){
+				$(item).addClassName('active');
+			}
 		});
-		// TODO: need to set the current cube active
 	}
 });

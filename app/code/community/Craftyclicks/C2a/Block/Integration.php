@@ -13,19 +13,25 @@ class Craftyclicks_C2a_Block_Integration extends Mage_Core_Block_Template
 		);
 		$head = $this->getLayout()->getBlock('head');
 		$path = 'craftyclicks/c2a/';
-		//$head->removeItem('js', 'craftyclicks/clicktoaddress/craftyclicks_magento.js');
+
+		$active_file = '';
 		if($config->cc_c2a_global){
-			$head->addItem('js', $path.'/lib/cc_c2a.min.js');
-			$head->addItem('skin_css', 'css/'.$path.'cc_c2a.min.css');
 			switch($param){
 				case 'admin':
-					$head->addItem('js', $path.'/admin.js');
+					$active_file = 'admin.js';
 					break;
 				default:
-					$head->addItem('js', $path.'/default.js');
+					$active_file = 'default.js';
 					break;
 			}
 		}
+		/* detect checkouts, that don't use unique layout tags */
+		/*if(Mage::getStoreConfig('onestepcheckout/general/enable') == "1"){
+			$active_file = 'advanced.js';
+		}*/
+
+		$head->addItem('js', $path.$active_file);
+
 		return $this;
 	}
 	public function addConfig(){
@@ -36,7 +42,6 @@ class Craftyclicks_C2a_Block_Integration extends Mage_Core_Block_Template
 		);
 		if($config->cc_c2a_global){
 			echo $this->getLayout()->createBlock('core/template')->setTemplate('craftyclicks/c2a/c2a_config.phtml')->toHtml();
-
 		}
 	}
 }

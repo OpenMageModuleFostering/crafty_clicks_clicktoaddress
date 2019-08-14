@@ -19,14 +19,19 @@
 // If you need any help, contact support@craftyclicks.co.uk - we will help!
 //
 **********************************************************************************/
+
+
 var cc_search = null;
 function cc_magento(magentoCfg){
-	var li_class = 'wide';
+	var li_class = 'advanced-col-xs-12 input-field';
 
 	if (c2a_config.design.search_position == 1){
 		if (!$(magentoCfg.prefix+'_cc_search_input')) {
-			var tmp_html = '<li class="'+li_class+'"><label>'+c2a_config.texts.search_label+'</label><div class="input-box"><input class="input-text" id="'+magentoCfg.prefix+'_cc_search_input" type="search"/></div></li>';
-			magentoCfg.fields.line_1.up('li').insert( {before: tmp_html} );
+			var tmp_html = '<div class="'+li_class+'">'
+				+'<label>'+c2a_config.texts.search_label+'</label>'
+				+'<div class="input-box"><input class="input-text" id="'+magentoCfg.prefix+'_cc_search_input" type="search"/></div>'
+				+'</div>';
+			magentoCfg.fields.line_1.up('.advanced-row').up('.input-field').insert( {before: tmp_html} );
 		}
 		cc_search.attach({
 			search: 	$(magentoCfg.prefix+'_cc_search_input'),
@@ -64,12 +69,10 @@ function cc_hide_fields(dom, show){
 		elementsToHide.push('country');
 	}
 	var getParent = function(element){
-		if(element.up('.field')){
-			return element.up('.field');
+		while(!element.up().hasClassName('advanced-form-style')){
+			element = element.up();
 		}
-		if(element.up('.wide')){
-			return element.up('.wide');
-		}
+		return element;
 	};
 
 	if(!show){
@@ -116,9 +119,9 @@ document.observe('dom:loaded', function() {
 			ambient: c2a_config.design.ambient,
 			accent: c2a_config.design.accent
 		},
-		getIpLocation: c2a_config.advanced.geocoding,
 		showLogo: false,
 		texts: c2a_config.texts,
+		getIpLocation: c2a_config.advanced.geocoding,
 		onSetCounty: function(c2a, elements, county){
 			var quickChange = function(elem){
 				if(typeof elem != 'undefined' && elem !== null){
@@ -231,7 +234,6 @@ document.observe('dom:loaded', function() {
 		});
 	}
 });
-
 /*
  * Protolicious
  * Extension to Prototype to add support to simulate JS events

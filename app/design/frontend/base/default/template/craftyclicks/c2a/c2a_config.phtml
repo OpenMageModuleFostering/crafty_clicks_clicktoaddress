@@ -1,11 +1,9 @@
 <?php
-
 $conf = Mage::getStoreConfig('c2a_global/options');
 
 $js_config = "";
 
 if (1 == $conf['active']) {
-
 	$design = Mage::getStoreConfig('c2a_global/design');
 	$texts = Mage::getStoreConfig('c2a_global/texts');
 	$advanced = Mage::getStoreConfig('c2a_global/advanced');
@@ -14,30 +12,50 @@ if (1 == $conf['active']) {
 		'active' => $conf['active'],
 		'access_token' => $conf['access_token'],
 		'design' => (object) array(
+			'search_position' => $design['search_position'],
 			'mode' => $design['dropdown_mode'],
 			'ambient' => $design['dropdown_ambient'],
-			'accent' => $design['dropdown_accent']
+			'accent' => $design['dropdown_accent'],
+			'hide_address_fields' => $design['hide_address_fields'] == "1"
 		),
 		'texts' => (object) array(
+			'country_language' => $texts['country_language'],
 			'search_label' => $texts['search_label'],
 			'default_placeholder' => $texts['search_placeholder'],
 			'country_placeholder' => $texts['country_placeholder'],
 			'country_button' => $texts['country_button'],
-			'generic_error' => $texts['error_msg_1'],
-			'no_results' => $texts['error_msg_2']
+			'no_results' => $texts['error_msg_1'],
+			'generic_error' => $texts['error_msg_2']
 		),
-		'cc_hash_url' => Mage::getUrl('c2a/hash/save',array('_secure'=>true))
+		'advanced' => (object) array(
+			'match_countries_to_magento' => $advanced['match_country_list'] == "1",
+			'lock_country_to_dropdown' => $advanced['lock_country_to_dropdown'] == "1",
+			'cc_hash_url' => Mage::getUrl('c2a/hash/save',array('_secure'=>true)),
+			'geocoding' => $advanced['geocoding'] == "1"
+		)
 	);
-
-} else { //if (1 == $conf['active']) {
+	$default_country_code = Mage::getStoreConfig('general/country/default');
+	$default_country = Mage::getModel('directory/country')->loadByCode($default_country_code);
+	$output->default_country = strtolower($default_country->_data['iso3_code']);
+	$magento_countries = Mage::getModel('directory/country')
+				->getResourceCollection()
+				->loadByStore()
+				->toOptionArray(true);
+	$output->enabled_countries = array();
+	foreach($magento_countries as $key => $country){
+		if($country['value'] != ''){
+			$output->enabled_countries[] = $country['value'];
+		}
+	}
+} else {
 	$output = (object) array(
 		'active' => false
 	);
 }
 ?>
-
+<script src="//cc-cdn.com/generic/scripts/v1/cc_c2a.min.js"></script>
 <script type="text/javascript">
 //<![CDATA[
-var c2a_config = <?php echo json_encode($output); ?>
+var c2a_config = <?php echo json_encode($output); ?>;
 //]]>
 </script>
