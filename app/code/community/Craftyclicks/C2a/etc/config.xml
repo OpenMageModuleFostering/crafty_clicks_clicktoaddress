@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Craftyclicks_C2a>
-			<version>0.5.3</version>
+			<version>0.5.4</version>
 		</Craftyclicks_C2a>
 	</modules>
 
@@ -58,6 +58,9 @@
 				<error_msg_1>No results found</error_msg_1>
 				<error_msg_2>An error occured. Please enter your address manually</error_msg_2>
 			</texts>
+			<advanced>
+				<match_country_list>1</match_country_list>
+			</advanced>
 		</c2a_global>
 	</default>
 

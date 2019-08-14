@@ -39,7 +39,7 @@ function cc_magento(magentoCfg){
 			country:	magentoCfg.fields.country_obj,
 			country:	magentoCfg.fields.country_obj
 		});
-	} else {		
+	} else {
 		cc_search.attach({
 			search: 	magentoCfg.fields.street1_obj,
 			line_1: 	magentoCfg.fields.street1_obj,
@@ -92,6 +92,10 @@ document.observe('dom:loaded', function() {
 		},
 		tag: 'Magento 1'
 	};
+	if(parseInt(c2a_config.advanced.match_countries_to_magento) == 1){
+		config.countryMatchWith = 'iso_2';
+		config.enabledCountries = c2a_config.enabled_countries;
+	}
 	cc_search = new clickToAddress(config);
 
 	if ($('address_list')) {

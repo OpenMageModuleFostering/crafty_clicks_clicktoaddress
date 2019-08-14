@@ -61,7 +61,6 @@ document.observe('dom:loaded', function() {
 		domMode: 'object',
 		geocode: false,
 		gfxMode: c2a_config.design.mode,
-		defaultCountry: 'usa',
 		style: {
 			ambient: c2a_config.design.ambient,
 			accent: c2a_config.design.accent
@@ -90,6 +89,10 @@ document.observe('dom:loaded', function() {
 		},
 		tag: 'Magento 1'
 	};
+	if(parseInt(c2a_config.advanced.match_countries_to_magento) == 1){
+		config.countryMatchWith = 'iso_2';
+		config.enabledCountries = c2a_config.enabled_countries;
+	}
 	cc_search = new clickToAddress(config);
 
 	if ($('billing:postcode')) {

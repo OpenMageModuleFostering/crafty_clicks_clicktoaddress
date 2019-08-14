@@ -1,11 +1,9 @@
 <?php
-
 $conf = Mage::getStoreConfig('c2a_global/options');
 
 $js_config = "";
 
 if (1 == $conf['active']) {
-
 	$design = Mage::getStoreConfig('c2a_global/design');
 	$texts = Mage::getStoreConfig('c2a_global/texts');
 	$advanced = Mage::getStoreConfig('c2a_global/advanced');
@@ -27,18 +25,29 @@ if (1 == $conf['active']) {
 			'generic_error' => $texts['error_msg_1'],
 			'no_results' => $texts['error_msg_2']
 		),
-		'cc_hash_url' => Mage::getUrl('c2a/hash/save',array('_secure'=>true))
+		'advanced' => (object) array(
+			'match_countries_to_magento' => $advanced['match_country_list'],
+			'cc_hash_url' => Mage::getUrl('c2a/hash/save',array('_secure'=>true))
+		)
 	);
-
-} else { //if (1 == $conf['active']) {
+	$magento_countries = Mage::getModel('directory/country')
+				->getResourceCollection()
+				->loadByStore()
+				->toOptionArray(true);
+	$output->enabled_countries = array();
+	foreach($magento_countries as $key => $country){
+		if($country['value'] != ''){
+			$output->enabled_countries[] = $country['value'];
+		}
+	}
+} else {
 	$output = (object) array(
 		'active' => false
 	);
 }
 ?>
-
 <script type="text/javascript">
 //<![CDATA[
-var c2a_config = <?php echo json_encode($output); ?>
+var c2a_config = <?php echo json_encode($output); ?>;
 //]]>
 </script>
