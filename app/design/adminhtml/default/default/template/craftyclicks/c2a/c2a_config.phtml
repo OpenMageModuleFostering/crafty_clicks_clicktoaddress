@@ -16,9 +16,15 @@ if (1 == $conf['active']) {
 			'ambient' => $design['dropdown_ambient'],
 			'accent' => $design['dropdown_accent']
 		),
-		'advanced' => (object) array(
-			'uk_internal_access_token' => $advanced['uk_internal_access_token']
-		)
+		'texts' => (object) array(
+			'search_label' => $texts['search_label'],
+			'default_placeholder' => $texts['search_placeholder'],
+			'country_placeholder' => $texts['country_placeholder'],
+			'country_button' => $texts['country_button'],
+			'generic_error' => $texts['error_msg_1'],
+			'no_results' => $texts['error_msg_2']
+		),
+		'cc_hash_url' => Mage::getUrl('c2a/hash/save',array('_secure'=>true))
 	);
 
 	/* ---------------------------------------------------------------------------
@@ -96,9 +102,8 @@ if (1 == $conf['active']) {
 	);
 }
 ?>
-
 <script type="text/javascript">
 //<![CDATA[
-var c2a_config = <?php echo json_encode($output); ?>
+var c2a_config = <?php echo json_encode($output); ?>;
 //]]>
 </script>

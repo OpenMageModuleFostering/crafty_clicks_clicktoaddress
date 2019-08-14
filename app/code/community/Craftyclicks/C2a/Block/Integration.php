@@ -25,18 +25,6 @@ class Craftyclicks_C2a_Block_Integration extends Mage_Core_Block_Template
 					$head->addItem('js', $path.'/default.js');
 					break;
 			}
-		} elseif($config->cc_pcl_frontend || $config->cc_pcl_backend){
-			/*
-			$head->addItem('js', $path.'crafty_postcode.class.js');
-			switch($param){
-				case 'admin':
-					$head->addItem('js', $path.'craftyclicks_magento_admin.js');
-					break;
-				default:
-					$head->addItem('js', $path.'craftyclicks_magento.js');
-					break;
-			}
-			*/
 		}
 		return $this;
 	}
@@ -46,15 +34,9 @@ class Craftyclicks_C2a_Block_Integration extends Mage_Core_Block_Template
 			'cc_pcl_backend'	=> (int) Mage::getStoreConfig('clicktoaddress/general/active_admin_panel'),
 			'cc_c2a_global'		=> (int) Mage::getStoreConfig('c2a_global/options/active')
 		);
-		/*$message = $this->__('Banana.');
-		Mage::getSingleton('adminhtml/session')->addSuccess($message);
-		*/
 		if($config->cc_c2a_global){
 			echo $this->getLayout()->createBlock('core/template')->setTemplate('craftyclicks/c2a/c2a_config.phtml')->toHtml();
 
-		} elseif($config->cc_pcl_frontend || $config->cc_pcl_backend){
-			//echo $this->getLayout()->createBlock('core/template')->setTemplate('craftyclicks/clicktoaddress/common_config.phtml');
 		}
-
 	}
 }

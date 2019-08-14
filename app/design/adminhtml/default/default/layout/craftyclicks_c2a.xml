@@ -10,16 +10,18 @@
  -->
 
 <layout>
-	<adminhtml_sales_order_create_load_block_data>
+	<adminhtml_sales_order_create_index>
 		<reference name="head">
 			<block type="c2a/integration" name="integration">
 				<action method="addJS">
 					<parameter>admin</parameter>
 				</action>
-				<action method="addConfig"/>
 			</block>
 		</reference>
-	</adminhtml_sales_order_create_load_block_data>
+		<reference name="js">
+			<block type="adminhtml/template" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
+		</reference>
+	</adminhtml_sales_order_create_index>
 
 	<adminhtml_customer_edit>
 		<reference name="head">
@@ -27,8 +29,10 @@
 				<action method="addJS">
 					<parameter>admin</parameter>
 				</action>
-				<action method="addConfig"/>
 			</block>
+		</reference>
+		<reference name="js">
+			<block type="adminhtml/template" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
 		</reference>
 	</adminhtml_customer_edit>
 
@@ -38,8 +42,10 @@
 				<action method="addJS">
 					<parameter>admin</parameter>
 				</action>
-				<action method="addConfig"/>
 			</block>
+		</reference>
+		<reference name="js">
+			<block type="adminhtml/template" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
 		</reference>
 	</adminhtml_customer_new>
 
@@ -49,8 +55,10 @@
 				<action method="addJS">
 					<parameter>admin</parameter>
 				</action>
-				<action method="addConfig"/>
 			</block>
+		</reference>
+		<reference name="js">
+			<block type="adminhtml/template" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
 		</reference>
 	</adminhtml_sales_order_address>
 

@@ -45,7 +45,7 @@
 				<access_token>xxxxx-xxxxx-xxxxx-xxxxx</access_token>
 			</options>
 			<design>
-				<dropdown_mode>1</dropdown_mode>
+				<dropdown_mode>2</dropdown_mode>
 				<dropdown_ambient>light</dropdown_ambient>
 				<dropdown_accent>default</dropdown_accent>
 			</design>

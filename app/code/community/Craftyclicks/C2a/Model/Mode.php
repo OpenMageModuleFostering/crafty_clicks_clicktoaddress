@@ -6,12 +6,12 @@ class Craftyclicks_C2a_Model_Mode
 	{
 		return array(
 			array(
-				'value' => '2',
-				'label' => 'Surround'
-			),
-			array(
 				'value' => '1',
 				'label' => 'Simple Below'
+			),
+			array(
+				'value' => '2',
+				'label' => 'Surround'
 			)
 		);
 	}

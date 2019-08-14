@@ -19,8 +19,8 @@
 				<action method="addJS">
 					<parameter>default</parameter>
 				</action>
-				<action method="addConfig"/>
 			</block>
+			<block type="page/html" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
 		</reference>
 	</checkout_onepage_index>
 
@@ -30,8 +30,8 @@
 				<action method="addJS">
 					<parameter>default</parameter>
 				</action>
-				<action method="addConfig"/>
 			</block>
+			<block type="page/html" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
 		</reference>
 	</checkout_multishipping_customer_address>
 
@@ -41,8 +41,8 @@
 				<action method="addJS">
 					<parameter>default</parameter>
 				</action>
-				<action method="addConfig"/>
 			</block>
+			<block type="page/html" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
 		</reference>
 	</checkout_multishipping_register>
 
@@ -52,8 +52,8 @@
 				<action method="addJS">
 					<parameter>default</parameter>
 				</action>
-				<action method="addConfig"/>
 			</block>
+			<block type="page/html" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
 		</reference>
 	</customer_address_form>
 
@@ -63,8 +63,8 @@
 				<action method="addJS">
 					<parameter>default</parameter>
 				</action>
-				<action method="addConfig"/>
 			</block>
+			<block type="page/html" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
 		</reference>
 	</customer_account_create>
 </layout>

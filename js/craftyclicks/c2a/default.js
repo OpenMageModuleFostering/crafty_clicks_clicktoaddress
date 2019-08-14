@@ -24,7 +24,7 @@ function cc_magento(magentoCfg){
 	var li_class = 'wide';
 
 	if (!$(magentoCfg.prefix+'_cc_search_input')) {
-		var tmp_html = '<li class="'+li_class+'"><label>Address Search</label><div class="input-box"><input id="'+magentoCfg.prefix+'_cc_search_input" type="text"/></div></li>';
+		var tmp_html = '<li class="'+li_class+'"><label>'+c2a_config.texts.search_label+'</label><div class="input-box"><input id="'+magentoCfg.prefix+'_cc_search_input" type="text"/></div></li>';
 		magentoCfg.fields.street1_obj.up('li').insert( {before: tmp_html} );
 	}
 	cc_search.attach({
@@ -34,7 +34,8 @@ function cc_magento(magentoCfg){
 		town:		magentoCfg.fields.town_obj,
 		company:	magentoCfg.fields.company_obj,
 		postcode:	magentoCfg.fields.postcode_obj,
-		county:		magentoCfg.fields.county_obj
+		county:		magentoCfg.fields.county_obj,
+		country:	magentoCfg.fields.country_obj
 	});
 }
 
@@ -53,30 +54,29 @@ document.observe('dom:loaded', function() {
 			accent: c2a_config.design.accent
 		},
 		showLogo: false,
-		texts: {
-			default_placeholder: 'Typo here where you wanna go'
-		},
-		cssPath: false
-		/*
-		onResultSelected: function(address){
-			console.log(address);
-			var address_data = {
-				line_1: address.line_1,
-				line_2: address.line_2,
-				town:	address.locality,
-				postal_code: address.postal_code
+		texts: c2a_config.texts,
+		cssPath: false,
+		onSetCounty: function(c2a, county, elements){
+			var quickChange = function(elem){
+				if(typeof elem != 'undefined' && elem !== null){
+					elem.simulate('change');
+				}
 			};
-			new Ajax.Request(c2a_config.cc_hash_url,{
-				method:		"post",
-				postBody:	JSON.stringify(address_data),
-				onSuccess:	function(transport){
-					console.log(transport);
-					var response = transport.responseText || "no response text";
-					alert("Success! \n\n" + response);
-				},
-				onFailure:	function(){ alert('Something went wrong...') }
-			});
-		}*/
+			quickChange(elements.country);
+			quickChange(elements.postcode);
+			quickChange(elements.line_1);
+			quickChange(elements.line_2);
+			quickChange(elements.town);
+			quickChange(elements.company);
+			if(typeof elements.county.list != 'undefined' && elements.county.list !== null){
+				c2a.setCounty(elements.county.list, county);
+			}
+			if(typeof elements.county.input != 'undefined' && elements.county.input !== null){
+				c2a.setCounty(elements.county.input, county);
+			}
+		},
+		onResultSelected: function(c2a, elements, address){
+		}
 	};
 	cc_search = new clickToAddress(config);
 
@@ -91,7 +91,10 @@ document.observe('dom:loaded', function() {
 				street3_obj	: $('billing:street3'),
 				street4_obj	: $('billing:street4'),
 				town_obj	: $('billing:city'),
-				county_obj	: $('billing:region'),
+				county_obj	: {
+					input	: $('billing:region'),
+					list	: $('billing:region_id')
+				},
 				country_obj	: $('billing:country_id')
 			}
 		});
@@ -107,7 +110,10 @@ document.observe('dom:loaded', function() {
 				street3_obj		: $('shipping:street3'),
 				street4_obj		: $('shipping:street4'),
 				town_obj		: $('shipping:city'),
-				county_obj		: $('shipping:region'),
+				county_obj		: {
+					input		: $('shipping:region'),
+					list		: $('shipping:region_id')
+				},
 				country_obj		: $('shipping:country_id')
 			}
 		});
@@ -124,9 +130,74 @@ document.observe('dom:loaded', function() {
 				street3_obj		: $('street_3'),
 				street4_obj		: $('street_4'),
 				town_obj		: $('city'),
-				county_obj		: $('region'),
+				county_obj		: {
+					input		: $('region'),
+					list		: $('region_id')
+				},
 				country_obj		: $('country')
 			}
 		});
 	}
 });
+
+/*
+ * Protolicious
+ * Extension to Prototype to add support to simulate JS events
+ * https://github.com/kangax/protolicious
+ * Protolicious is licensed under the terms of the MIT license
+ */
+ (function(){
+
+   var eventMatchers = {
+	 'HTMLEvents': /^(?:load|unload|abort|error|select|change|submit|reset|focus|blur|resize|scroll)$/,
+	 'MouseEvents': /^(?:click|mouse(?:down|up|over|move|out))$/
+   }
+   var defaultOptions = {
+	 pointerX: 0,
+	 pointerY: 0,
+	 button: 0,
+	 ctrlKey: false,
+	 altKey: false,
+	 shiftKey: false,
+	 metaKey: false,
+	 bubbles: true,
+	 cancelable: true
+   }
+
+   Event.simulate = function(element, eventName) {
+	 var options = Object.extend(defaultOptions, arguments[2] || { });
+	 var oEvent, eventType = null;
+
+	 element = $(element);
+
+	 for (var name in eventMatchers) {
+	   if (eventMatchers[name].test(eventName)) { eventType = name; break; }
+	 }
+
+	 if (!eventType)
+	   throw new SyntaxError('Only HTMLEvents and MouseEvents interfaces are supported');
+
+	 if (document.createEvent) {
+	   oEvent = document.createEvent(eventType);
+	   if (eventType == 'HTMLEvents') {
+		 oEvent.initEvent(eventName, options.bubbles, options.cancelable);
+	   }
+	   else {
+		 oEvent.initMouseEvent(eventName, options.bubbles, options.cancelable, document.defaultView,
+		   options.button, options.pointerX, options.pointerY, options.pointerX, options.pointerY,
+		   options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, options.button, element);
+	   }
+	   element.dispatchEvent(oEvent);
+	 }
+	 else {
+	   options.clientX = options.pointerX;
+	   options.clientY = options.pointerY;
+	   oEvent = Object.extend(document.createEventObject(), options);
+	   element.fireEvent('on' + eventName, oEvent);
+	 }
+	 return element;
+   }
+
+   Element.addMethods({ simulate: Event.simulate });
+ })()
+/* End of Protolicious */
