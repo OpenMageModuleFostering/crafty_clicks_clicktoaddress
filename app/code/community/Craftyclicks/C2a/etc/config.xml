@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Craftyclicks_C2a>
-			<version>0.5.5</version>
+			<version>0.5.6</version>
 		</Craftyclicks_C2a>
 	</modules>
 
@@ -61,6 +61,7 @@
 			</texts>
 			<advanced>
 				<match_country_list>1</match_country_list>
+				<lock_country_to_dropdown>0</lock_country_to_dropdown>
 			</advanced>
 		</c2a_global>
 	</default>

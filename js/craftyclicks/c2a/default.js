@@ -25,7 +25,7 @@ function cc_magento(magentoCfg){
 
 	if (c2a_config.design.search_position == 1){
 		if (!$(magentoCfg.prefix+'_cc_search_input')) {
-			var tmp_html = '<li class="'+li_class+'"><label>'+c2a_config.texts.search_label+'</label><div class="input-box"><input id="'+magentoCfg.prefix+'_cc_search_input" type="text"/></div></li>';
+			var tmp_html = '<li class="'+li_class+'"><label>'+c2a_config.texts.search_label+'</label><div class="input-box"><input class="input-text" id="'+magentoCfg.prefix+'_cc_search_input" type="text"/></div></li>';
 			magentoCfg.fields.street1_obj.up('li').insert( {before: tmp_html} );
 		}
 		cc_search.attach({
@@ -100,6 +100,17 @@ document.observe('dom:loaded', function() {
 		config.countryMatchWith = 'iso_2';
 		config.enabledCountries = c2a_config.enabled_countries;
 	}
+	if(parseInt(c2a_config.advanced.lock_country_to_dropdown) == 1){
+		config.countrySelector = false;
+		config.onSearchFocus = function(c2a, dom){
+			var currentCountry = dom.country.options[dom.country.selectedIndex].value;
+			if(currentCountry != ''){
+				var countryCode = getCountryCode(c2a, currentCountry, 'iso_2');
+				c2a.selectCountry(countryCode);
+			}
+		};
+	}
+
 	cc_search = new clickToAddress(config);
 
 	if ($('billing:postcode')) {
