@@ -35,7 +35,9 @@ document.observe('dom:loaded', function() {
 				$$('.color-set .color-cube').each(function(cube){ cube.removeClassName('active'); });
 				this.addClassName('active');
 			});
+			if($(item).readAttribute('data-value') == $('c2a_global_design_dropdown_accent').getValue()){
+				$(item).addClassName('active');
+			}
 		});
-		// TODO: need to set the current cube active
 	}
 });

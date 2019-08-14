@@ -23,20 +23,33 @@ var cc_search = null;
 function cc_magento(magentoCfg){
 	var li_class = 'wide';
 
-	if (!$(magentoCfg.prefix+'_cc_search_input')) {
-		var tmp_html = '<li class="'+li_class+'"><label>'+c2a_config.texts.search_label+'</label><div class="input-box"><input id="'+magentoCfg.prefix+'_cc_search_input" type="text"/></div></li>';
-		magentoCfg.fields.street1_obj.up('li').insert( {before: tmp_html} );
+	if (c2a_config.design.search_position == 1){
+		if (!$(magentoCfg.prefix+'_cc_search_input')) {
+			var tmp_html = '<li class="'+li_class+'"><label>'+c2a_config.texts.search_label+'</label><div class="input-box"><input id="'+magentoCfg.prefix+'_cc_search_input" type="text"/></div></li>';
+			magentoCfg.fields.street1_obj.up('li').insert( {before: tmp_html} );
+		}
+		cc_search.attach({
+			search: 	$(magentoCfg.prefix+'_cc_search_input'),
+			line_1: 	magentoCfg.fields.street1_obj,
+			line_2: 	magentoCfg.fields.street2_obj,
+			town:		magentoCfg.fields.town_obj,
+			company:	magentoCfg.fields.company_obj,
+			postcode:	magentoCfg.fields.postcode_obj,
+			county:		magentoCfg.fields.county_obj,
+			country:	magentoCfg.fields.country_obj
+		});
+	} else {
+		cc_search.attach({
+			search: 	magentoCfg.fields.street1_obj,
+			line_1: 	magentoCfg.fields.street1_obj,
+			line_2: 	magentoCfg.fields.street2_obj,
+			town:		magentoCfg.fields.town_obj,
+			company:	magentoCfg.fields.company_obj,
+			postcode:	magentoCfg.fields.postcode_obj,
+			county:		magentoCfg.fields.county_obj,
+			country:	magentoCfg.fields.country_obj
+		});
 	}
-	cc_search.attach({
-		search: 	$(magentoCfg.prefix+'_cc_search_input'),
-		line_1: 	magentoCfg.fields.street1_obj,
-		line_2: 	magentoCfg.fields.street2_obj,
-		town:		magentoCfg.fields.town_obj,
-		company:	magentoCfg.fields.company_obj,
-		postcode:	magentoCfg.fields.postcode_obj,
-		county:		magentoCfg.fields.county_obj,
-		country:	magentoCfg.fields.country_obj
-	});
 }
 
 

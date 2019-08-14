@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Craftyclicks_C2a>
-			<version>0.5.2</version>
+			<version>0.5.3</version>
 		</Craftyclicks_C2a>
 	</modules>
 
@@ -45,6 +45,7 @@
 				<access_token>xxxxx-xxxxx-xxxxx-xxxxx</access_token>
 			</options>
 			<design>
+				<search_position>1</search_position>
 				<dropdown_mode>2</dropdown_mode>
 				<dropdown_ambient>light</dropdown_ambient>
 				<dropdown_accent>default</dropdown_accent>
