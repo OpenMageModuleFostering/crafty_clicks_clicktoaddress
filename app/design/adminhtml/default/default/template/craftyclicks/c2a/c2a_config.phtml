@@ -8,6 +8,9 @@ if (1 == $conf['active']) {
 	$texts = Mage::getStoreConfig('c2a_global/texts');
 	$advanced = Mage::getStoreConfig('c2a_global/advanced');
 
+	// get magento version
+	$version_parts = explode('.',Mage::getVersion());
+
 	$output = (object) array(
 		'active' => $conf['active'],
 		'access_token' => $conf['access_token'],
@@ -27,8 +30,11 @@ if (1 == $conf['active']) {
 			'generic_error' => $texts['error_msg_2']
 		),
 		'advanced' => (object) array(
-			'match_countries_to_magento' => $advanced['match_country_list'],
+			'match_countries_to_magento' => $advanced['match_country_list'] == "1",
 			'cc_hash_url' => Mage::getUrl('c2a/hash/save',array('_secure'=>true))
+		),
+		'other' => (object) array(
+			'magento_version' => $version_parts[0].'.'.$version_parts[1]
 		)
 	);
 	$magento_countries = Mage::getModel('directory/country')
@@ -47,6 +53,7 @@ if (1 == $conf['active']) {
 	);
 }
 ?>
+<script src="//cc-cdn.com/generic/scripts/v1/cc_c2a.min.js"></script>
 <script type="text/javascript">
 //<![CDATA[
 var c2a_config = <?php echo json_encode($output); ?>;

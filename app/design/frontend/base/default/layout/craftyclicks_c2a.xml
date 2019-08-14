@@ -10,9 +10,7 @@
  -->
 
 <layout>
-
 <!-- standard magento pages -->
-
 	<checkout_onepage_index>
 		<reference name="head">
 			<block type="c2a/integration" name="integration">
@@ -67,4 +65,16 @@
 			<block type="page/html" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
 		</reference>
 	</customer_account_create>
+
+	<!-- IDEV, MageStore, OSC -->
+	<onestepcheckout_index_index>
+		<reference name="head">
+			<block type="c2a/integration" name="integration">
+				<action method="addJS">
+					<parameter>default</parameter>
+				</action>
+			</block>
+			<block type="page/html" name="craftyclicks_config" template="craftyclicks/c2a/c2a_config.phtml" />
+		</reference>
+	</onestepcheckout_index_index>
 </layout>

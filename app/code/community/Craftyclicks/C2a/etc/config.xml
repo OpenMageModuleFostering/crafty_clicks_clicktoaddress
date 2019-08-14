@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Craftyclicks_C2a>
-			<version>0.5.7</version>
+			<version>0.5.8</version>
 		</Craftyclicks_C2a>
 	</modules>
 
@@ -49,6 +49,7 @@
 				<dropdown_mode>2</dropdown_mode>
 				<dropdown_ambient>light</dropdown_ambient>
 				<dropdown_accent>default</dropdown_accent>
+				<hide_address_fields>0</hide_address_fields>
 			</design>
 			<texts>
 				<country_language>0</country_language>

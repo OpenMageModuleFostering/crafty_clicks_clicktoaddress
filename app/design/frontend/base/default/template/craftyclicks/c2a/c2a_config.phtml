@@ -15,7 +15,8 @@ if (1 == $conf['active']) {
 			'search_position' => $design['search_position'],
 			'mode' => $design['dropdown_mode'],
 			'ambient' => $design['dropdown_ambient'],
-			'accent' => $design['dropdown_accent']
+			'accent' => $design['dropdown_accent'],
+			'hide_address_fields' => $design['hide_address_fields'] == "1"
 		),
 		'texts' => (object) array(
 			'country_language' => $texts['country_language'],
@@ -27,8 +28,8 @@ if (1 == $conf['active']) {
 			'generic_error' => $texts['error_msg_2']
 		),
 		'advanced' => (object) array(
-			'match_countries_to_magento' => $advanced['match_country_list'],
-			'lock_country_to_dropdown' => $advanced['lock_country_to_dropdown'],
+			'match_countries_to_magento' => $advanced['match_country_list'] == "1",
+			'lock_country_to_dropdown' => $advanced['lock_country_to_dropdown'] == "1",
 			'cc_hash_url' => Mage::getUrl('c2a/hash/save',array('_secure'=>true))
 		)
 	);
@@ -48,6 +49,7 @@ if (1 == $conf['active']) {
 	);
 }
 ?>
+<script src="//cc-cdn.com/generic/scripts/v1/cc_c2a.min.js"></script>
 <script type="text/javascript">
 //<![CDATA[
 var c2a_config = <?php echo json_encode($output); ?>;

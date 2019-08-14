@@ -13,16 +13,14 @@ class Craftyclicks_C2a_Block_Integration extends Mage_Core_Block_Template
 		);
 		$head = $this->getLayout()->getBlock('head');
 		$path = 'craftyclicks/c2a/';
-		//$head->removeItem('js', 'craftyclicks/clicktoaddress/craftyclicks_magento.js');
 		if($config->cc_c2a_global){
-			$head->addItem('js', $path.'/lib/cc_c2a.min.js');
-			$head->addItem('skin_css', 'css/'.$path.'cc_c2a.min.css');
+			//$head->addItem('skin_css', 'css/'.$path.'cc_c2a_frontend.css');
 			switch($param){
 				case 'admin':
-					$head->addItem('js', $path.'/admin.js');
+					$head->addItem('js', $path.'admin.js');
 					break;
 				default:
-					$head->addItem('js', $path.'/default.js');
+					$head->addItem('js', $path.'default.js');
 					break;
 			}
 		}
@@ -36,7 +34,6 @@ class Craftyclicks_C2a_Block_Integration extends Mage_Core_Block_Template
 		);
 		if($config->cc_c2a_global){
 			echo $this->getLayout()->createBlock('core/template')->setTemplate('craftyclicks/c2a/c2a_config.phtml')->toHtml();
-
 		}
 	}
 }
