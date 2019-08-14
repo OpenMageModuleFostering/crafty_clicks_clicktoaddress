@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Crafty_Clicks_Clicktoaddress",
+    "type": "magento-module",
+    "license": "MIT-License",
+    "homepage": "",
+    "description": "Predictive address auto-complete. Speeds up address form filling giving a faster checkout experience and improved address data quality.",
+    "authors": [
+    {
+        "name": "Gabor Suranyi",
+        "email": "gabor@craftyclicks.co.uk"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

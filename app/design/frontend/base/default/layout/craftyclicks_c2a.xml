@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+ /**
+ * Crafty Clicks Postcode Lookup
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2009-2016 Crafty Clicks (https://www.craftyclicks.co.uk)
+ * @author       Crafty Clicks
+ */
+ -->
+
+<layout>
+
+<!-- standard magento pages -->
+
+	<checkout_onepage_index>
+		<reference name="head">
+			<block type="c2a/integration" name="integration">
+				<action method="addJS">
+					<parameter>default</parameter>
+				</action>
+				<action method="addConfig"/>
+			</block>
+		</reference>
+	</checkout_onepage_index>
+
+	<checkout_multishipping_customer_address>
+		<reference name="head">
+			<block type="c2a/integration" name="integration">
+				<action method="addJS">
+					<parameter>default</parameter>
+				</action>
+				<action method="addConfig"/>
+			</block>
+		</reference>
+	</checkout_multishipping_customer_address>
+
+	<checkout_multishipping_register>
+		<reference name="head">
+			<block type="c2a/integration" name="integration">
+				<action method="addJS">
+					<parameter>default</parameter>
+				</action>
+				<action method="addConfig"/>
+			</block>
+		</reference>
+	</checkout_multishipping_register>
+
+	<customer_address_form>
+		<reference name="head">
+			<block type="c2a/integration" name="integration">
+				<action method="addJS">
+					<parameter>default</parameter>
+				</action>
+				<action method="addConfig"/>
+			</block>
+		</reference>
+	</customer_address_form>
+
+	<customer_account_create>
+		<reference name="head">
+			<block type="c2a/integration" name="integration">
+				<action method="addJS">
+					<parameter>default</parameter>
+				</action>
+				<action method="addConfig"/>
+			</block>
+		</reference>
+	</customer_account_create>
+</layout>

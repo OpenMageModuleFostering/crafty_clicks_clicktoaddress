@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+ /**
+ * Crafty Clicks Postcode Lookup
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2009-2017 Crafty Clicks (https://www.craftyclicks.co.uk)
+ * @author       Crafty Clicks
+ */
+ -->
+
+<layout>
+	<adminhtml_sales_order_create_load_block_data>
+		<reference name="head">
+			<block type="c2a/integration" name="integration">
+				<action method="addJS">
+					<parameter>admin</parameter>
+				</action>
+				<action method="addConfig"/>
+			</block>
+		</reference>
+	</adminhtml_sales_order_create_load_block_data>
+
+	<adminhtml_customer_edit>
+		<reference name="head">
+			<block type="c2a/integration" name="integration">
+				<action method="addJS">
+					<parameter>admin</parameter>
+				</action>
+				<action method="addConfig"/>
+			</block>
+		</reference>
+	</adminhtml_customer_edit>
+
+	<adminhtml_customer_new>
+		<reference name="head">
+			<block type="c2a/integration" name="integration">
+				<action method="addJS">
+					<parameter>admin</parameter>
+				</action>
+				<action method="addConfig"/>
+			</block>
+		</reference>
+	</adminhtml_customer_new>
+
+	<adminhtml_sales_order_address>
+		<reference name="head">
+			<block type="c2a/integration" name="integration">
+				<action method="addJS">
+					<parameter>admin</parameter>
+				</action>
+				<action method="addConfig"/>
+			</block>
+		</reference>
+	</adminhtml_sales_order_address>
+
+	<adminhtml_system_config_edit>
+		<reference name="head">
+			<action method="addJs">
+				<script>craftyclicks/c2a/admin/enhance.js</script>
+			</action>
+			<action method="addCss">
+				<stylesheet>css/craftyclicks/c2a/enhance.css</stylesheet>
+			</action>
+		</reference>
+	</adminhtml_system_config_edit>
+</layout>
